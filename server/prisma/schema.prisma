@@ -11,3 +11,14 @@ model d_items {
   id        Int                    @id @default(autoincrement())
   embedding Unsupported("vector")?
 }
+
+model d_realtime {
+  rowid       Int       @id @default(autoincrement())
+  datasource  String?   @db.VarChar(25)
+  stationid   String?   @db.VarChar(25)
+  sampledate  DateTime? @db.Timestamp(6)
+  parameter   String?   @db.VarChar(25)
+  resultvalue Float?
+
+  @@ignore
+}

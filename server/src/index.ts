@@ -5,6 +5,7 @@ import helmet from "helmet";
 import pino from "pino";
 import pinoHttp from "pino-http";
 import itemsRouter from "./routes/d_items";
+import realtimeRouter from './routes/d_realtime';
 
 const app = express();
 const logger = pino({ level: process.env.NODE_ENV === "production" ? "info" : "debug" });
@@ -17,6 +18,7 @@ app.use(express.json());
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
 
 app.use("/api/d_items", itemsRouter);
+app.use("/api/d_realtime", realtimeRouter);
 
 // basic error handler
 app.use((err: any, _req: any, res: any, _next: any) => {

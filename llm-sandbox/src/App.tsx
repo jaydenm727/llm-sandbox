@@ -4,10 +4,11 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import OpenAI from 'openai';
 import ReactMarkdown from 'react-markdown';
+import DItemsList from './components/DItemsList';
+
 
 
 function App() {
-  const [count, setCount] = useState(0)
   const [inputValue, setInputValue] = useState('');
   const [submittedValue, setSubmittedValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -49,6 +50,7 @@ function App() {
       <div className='container'>
         <div className='row mt-5 pt-5'>
           <div className='col text-center'>
+            {/* <DItemsList></DItemsList> */}
             <a href="https://vite.dev" target="_blank">
               <img src={viteLogo} className="logo" alt="Vite logo" />
             </a>
