@@ -55,7 +55,7 @@ router.post("/query", async (req, res, next) => {
             groupExpr = "bucket";
             groupByClause = "GROUP BY bucket, datasource, stationid, parameter ORDER BY bucket ASC";
         } else {
-            groupByClause = ""; // no grouping
+            groupByClause = "GROUP BY datasource, stationid, parameter"; // no grouping
         }
 
         // Build final SELECT

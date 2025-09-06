@@ -35,22 +35,25 @@ function App() {
       "- If group_by not provided, use 'none'.",
       "- If a date range is not present or unclear, DO NOT guess; instead return:",
       `  { "error": "missing_dates", "message": "Please provide a start and end date (YYYY-MM-DD)." }`,
+      `- Do not use placeholders like "???", "TBD", or empty lists.`,
+      `- Dates MUST be "YYYY-MM-DD". If unclear, return {"error":"missing_dates","message":"Provide start and end (YYYY-MM-DD)."}`,
       "Examples:",
-      `Q: "Average air temp for K42J yesterday"`,
+      `Q: "NOAA_NWS datasource, Average air temp for K42J yesterday"`,
       `A: {"datasource":"NOAA_NWS","station":"K42J","parameter":"TempA_F","time_range":{"start":"2025-08-31","end":"2025-08-31"},"ops":["avg"],"group_by":"none"}`,
-      `Q: "K42J min/max temps for 2025-08-30 to 2025-08-31 by day"`,
+      `Q: "NOAA_NWS datasource, K42J min/max temps for 2025-08-30 to 2025-08-31 by day"`,
       `A: {"datasource":"NOAA_NWS","station":"K42J","parameter":"TempA_F","time_range":{"start":"2025-08-30","end":"2025-08-31"},"ops":["min","max"],"group_by":"day"}`
     ].join("\n");
 
     const user = `User request: """${nlQuery}"""`;
 
     const completion = await client.chat.completions.create({
-      model: "openai/gpt-oss-20b",
+      model: "qwen2.5-14b-instruct",
       temperature: 0,
       messages: [
         { role: "system", content: system },
         { role: "user", content: user }
-      ]
+      ],
+      top_p: 0
     });
 
     const raw = completion.choices[0]?.message?.content ?? "";
@@ -72,8 +75,8 @@ function App() {
   }
 
   async function run() {
-    setLoading(true);
-    setError(null);
+    setLoading(true); //spinning icon
+    setError(null); //if an error is returned
     setRows(null);
     setLlmJson("");
     setSummary(""); // reset

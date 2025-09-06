@@ -59,7 +59,7 @@ export async function summarizeResults(input: SummaryInput): Promise<string> {
         "- Mention station, parameter, and date range explicitly.",
         "- Use units only if present in parameter name (e.g., TempA_F → °F).",
         "- If `meta.truncated` is true, note that the summary is based on a subset of rows.",
-        "- Do not invent numbers; only use what’s in the payload.",
+        "- Do not invent numbers; only use what’cd s in the payload.",
         "- If you include a table, use GitHub Flavored Markdown with each row on its own line.",
         "- Keep numbers readable (no excessive decimals).",
     ].join("\n");
@@ -67,7 +67,7 @@ export async function summarizeResults(input: SummaryInput): Promise<string> {
     const user = "JSON payload:\n```json\n" + JSON.stringify(payload) + "\n```";
 
     const resp = await client.chat.completions.create({
-        model: "openai/gpt-oss-20b",
+        model: "qwen2.5-14b-instruct",
         temperature: 0,
         messages: [
             { role: "system", content: system },
